@@ -3,9 +3,11 @@ Section: editors
 Priority: optional
 Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
 Build-Depends: debhelper-compat (= 13)
-Standards-Version: 4.5.1
-Homepage: https://github.com/ibara/oed
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
+Homepage: https://github.com/RagnarokOS/ed
+Vcs-Git: https://github.com/RagnarokOS/ed.git
+Vcs-Browser: https://github.com/RagnarokOS/ed
 
 Package: ed
 Architecture: any
