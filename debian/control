@@ -3,7 +3,7 @@ Section: editors
 Priority: optional
 Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
 Build-Depends: debhelper-compat (= 13)
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Homepage: https://github.com/RagnarokOS/ed
 Vcs-Git: https://github.com/RagnarokOS/ed.git
