@@ -1,3 +1,10 @@
+ed (7.4-ragnarok02) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * 
+
+ -- Ian LeCorbeau <I-LeCorbeau@protonmail.com>  Tue, 21 Jan 2025 13:43:57 -0500
+
 ed (7.4-ragnarok01) unstable; urgency=medium
 
   * Initial build of OpenBSD's ed for Ragnarok.
