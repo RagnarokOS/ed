@@ -88,6 +88,8 @@ typedef struct undo {
 #define SPL0()						\
 	do {						\
 		if (--mutex == 0) {			\
+			if (sighup)			\
+				handle_hup(SIGHUP);	\
 			if (sigint)			\
 				handle_int(SIGINT);	\
 		}					\
@@ -158,7 +160,7 @@ char *get_extended_line(int *, int);
 int get_line_node_addr(line_t *);
 char *get_sbuf_line(line_t *);
 int get_tty_line(void);
-void handle_hup(void);
+void handle_hup(int);
 void handle_int(int);
 int has_trailing_escape(char *, char *);
 void init_buffers(void);

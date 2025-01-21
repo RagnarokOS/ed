@@ -177,7 +177,6 @@ top:
 		signal(SIGWINCH, handle_winch);
 	}
 	signal(SIGHUP, signal_hup);
-	siginterrupt(SIGHUP, 1);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_int);
 	if (sigsetjmp(env, 1)) {
@@ -1325,34 +1324,45 @@ strip_escapes(char *s)
 void
 signal_hup(int signo)
 {
-	sighup = 1;
+	int save_errno = errno;
+
+	if (mutex)
+		sighup = 1;
+	else
+		handle_hup(signo);
+	errno = save_errno;
 }
 
 
 void
 signal_int(int signo)
 {
+	int save_errno = errno;
+
 	if (mutex)
 		sigint = 1;
 	else
-		handle_int(signo);	/* XXX quite unsafe */
+		handle_int(signo);
+	errno = save_errno;
 }
 
 
 void
-handle_hup(void)
+handle_hup(int signo)
 {
 	char hup[PATH_MAX];
 
-	signal(SIGHUP, SIG_IGN);
+	if (!sigactive)
+		quit(1);		/* XXX signal race */
 	sighup = 0;
+	/* XXX signal race */
 	if (addr_last && write_file("ed.hup", "w", 1, addr_last) < 0 &&
 	    home != NULL && home[0] == '/') {
 		if (strlcpy(hup, home, sizeof(hup)) < sizeof(hup) &&
 		    strlcat(hup, "/ed.hup", sizeof(hup)) < sizeof(hup))
 			write_file(hup, "w", 1, addr_last);
 	}
-	exit(2);
+	_exit(2);
 }
 
 
